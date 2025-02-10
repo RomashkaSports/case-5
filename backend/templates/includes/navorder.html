@@ -1,0 +1,13 @@
+<section class="navbar navbar-expand sticky-bottom navbar-dark text-bg-dark order opacity-0 pe-none">
+    <div class="container flex-column flex-md-row g-2 pb-3 py-md-0">
+        <span class="navbar-brand pb-0 lh-1 pb-md-2">Забронировать</span>
+        <span class="navbar-text mb-3 mb-md-0">Вы бронируете <span class="order__count"></span></span>
+        <button class="btn btn-light order__send" data-url="{% url 'storage:order' %}">
+            {% if request.user.is_authenticated %}
+                Забронировать
+            {% else %}
+                Войти и забронировать
+            {% endif %}
+        </button>
+    </div>
+</section>

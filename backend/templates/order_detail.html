@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <span class="badge text-bg-{{ order.css }} rounded-pill">{{ order.get_status_display }}</span>
+    <h1 class="fw-normal mb-4">
+        <strong>{{ order }}</strong> от {{ order.created_at|date:'j E Y' }}
+    </h1>
+
+    {% if order.status == order.Status.CREATED %}
+        <div class="alert alert-primary col-lg-8 mb-4" role="alert">
+            <p>
+                <strong>Вы можете получить инвентарь.</strong><br>
+                Подойдите в рабочее время к спортивному залу, чтобы забрать заказ.</p>
+            <ul class="list-unstyled mb-0">
+                <li><strong>Рабочее время:</strong></li>
+                <li>Будни с 8:30 до 14:00</li>
+                <li>Суббота с 10:00 до 14:00</li>
+            </ul>
+        </div>
+    {% elif order.status == order.Status.ACTIVE %}
+        <div class="alert alert-info col-lg-8 mb-4" role="alert">
+            <p>
+                <strong>Инвентарь нужно вернуть до {{ order.end_date }}</strong><br>
+                Подойдите в рабочее время к спортивному залу, чтобы вернуть заказ.</p>
+            <ul class="list-unstyled mb-0">
+                <li><strong>Рабочее время:</strong></li>
+                <li>Будни с 8:30 до 14:00</li>
+                <li>Суббота с 10:00 до 14:00</li>
+            </ul>
+        </div>
+    {% endif %}
+
+    <h2 class="h4">Инвентарь в заявке</h2>
+    <ol class="list-group list-group-numbered list-group-flush col-lg-8">
+        {% for item in order.items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="me-auto ms-3">{{ item.inventory }}</span>
+                <span class="badge text-bg-primary rounded-pill">{{ item.count }} шт.</span>
+            </li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}
+
+
+{% block after_footer %}
+    {% include 'includes/modals.html' %}
+{% endblock %}

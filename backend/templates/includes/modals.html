@@ -1,0 +1,83 @@
+<div class="modal fade modal-auth">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="d-flex">
+                    <ul class="nav nav-underline">
+                        <li class="nav-item">
+                            <button class="nav-link pt-0 modal-auth__login-tab active" data-bs-toggle="tab"
+                                    data-bs-target="#login" type="button">Войти
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link pt-0 modal-auth__register-tab" data-bs-toggle="tab"
+                                    data-bs-target="#register" type="button">Зарегистрироваться
+                            </button>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn-close ms-auto modal-auth__close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="tab-content mt-3">
+                    <form class="tab-pane fade show active login" id="login" action="{% url 'storage:auth' %}">
+                        {% csrf_token %}
+                        <div class="mb-3 row">
+                            <label for="login-login" class="col-sm-2 col-form-label text-sm-end">Логин</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control login__login" name="login" id="login-login"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="login-password" class="col-sm-2 col-form-label text-sm-end">Пароль</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control login__password" name="password"
+                                       id="login-password" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 offset-sm-2 text-danger d-none login__error"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="submit" class="btn btn-primary w-100 login__submit">Войти</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="tab-pane fade register" id="register" action="{% url 'storage:auth' %}">
+                        {% csrf_token %}
+                        <div class="mb-3 row">
+                            <label for="register-name" class="col-sm-2 col-form-label text-sm-end">Имя</label>
+                            <div class="col-sm-10">
+                                <input class="form-control register__name" name="name" id="register-name" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="register-login" class="col-sm-2 col-form-label text-sm-end">Логин</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control register__login" name="login" id="register-login"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="register-password" class="col-sm-2 col-form-label text-sm-end">Пароль</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control register__password" name="password"
+                                       id="register-password" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-sm-10 offset-sm-2 text-danger d-none register__error"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="submit" class="btn btn-primary w-100 register__submit">
+                                    Зарегистрироваться
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

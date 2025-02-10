@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    {% include 'includes/jumbotron.html' %}
+
+    {% regroup inventories by category as categories %}
+    <div class="row">
+        <div class="col-md-4 col-lg-3 mb-3 d-none d-md-block">
+            <div class="position-sticky" style="top: 25px">
+                <h3 class="h4 fw-normal">Категории</h3>
+                <div id="categories" class="list-group list-group-flush rounded-3">
+                    {% for category in categories %}
+                        <a class="list-group-item" href="#{{ category.grouper.slug }}">
+                            {{ category.grouper.title }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md" id="catalog">
+            <div data-bs-spy="scroll" data-bs-target="#categories" data-bs-smooth-scroll="true"
+                 class="scrollspy-example" tabindex="0">
+                {% for category in categories %}
+                    <h2 class="h4 mb-4 fw-normal" id="{{ category.grouper.slug }}">{{ category.grouper.title }}</h2>
+                    <div class="row row-cols-3 mb-5">
+                        {% for inventory in category.list %}
+                            <div class="col-12 col-lg-6 col-xl-4 mb-4 {% if not inventory.available %}opacity-50{% endif %}">
+                                <div class="card px-0 h-100 border-light">
+                                    <div class="ratio ratio-16x9 card-img-top background"
+                                         {% if inventory.image %}style="background-image: url('{{ inventory.image.url }}');"{% endif %}>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ inventory.title }}</h5>
+                                        <p class="card-text">{{ inventory.description|slice:90 }}</p>
+                                    </div>
+                                    <div class="card-footer border-0 bg-transparent pt-0 pb-3 inventory"
+                                         data-id="{{ inventory.pk }}">
+                                        {% if inventory.available %}
+                                            <button class="btn w-100 btn-outline-primary inventory__book">
+                                                Забронировать
+                                            </button>
+
+                                            <div class="input-group inventory__controls d-none">
+                                                <button class="btn btn-secondary inventory__minus" type="button">–
+                                                </button>
+                                                <input type="number" min="0" max="{{ inventory.available }}"
+                                                       class="form-control text-center inventory__count">
+                                                <button class="btn btn-secondary inventory__plus" type="button">+
+                                                </button>
+                                            </div>
+                                        {% else %}
+                                            <span class="btn w-100 btn-outline-dark disabled">Всё забронировано</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block after_footer %}
+    {% include 'includes/navorder.html' %}
+    {% include 'includes/modals.html' %}
+{% endblock %}
+
+{% block scripts %}
+	<script src="{% static 'assets/js/script.js' %}"></script>
+{% endblock %}

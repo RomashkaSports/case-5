@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1 class="display-5">Заявки на инвентарь</h1>
+    <p class="col-lg-8 lead py-3">
+        Вы&nbsp;можете обратиться к&nbsp;преподавателям физической культуры
+        за&nbsp;консультацией по&nbsp;поводу выбранного оборудования.
+        Учителя помогут оформить прокат или внести изменения в&nbsp;заказ.
+        Ждём вас в&nbsp;спортивном зале.
+    </p>
+
+    {% if not orders %}
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <h2 class="h4 mb-3">Здесь будут ваши заявки</h2>
+                <div class="list-group">
+                    <span class="list-group-item d-flex justify-content-between align-items-center placeholder-wave">
+                        <span class="placeholder bg-secondary col-6"></span>
+                        <span class="badge text-bg-primary rounded-pill">Создан</span>
+                    </span>
+                    <span class="list-group-item d-flex justify-content-between align-items-center placeholder-wave">
+                        <span class="placeholder bg-secondary col-7"></span>
+                        <span class="badge text-bg-primary rounded-pill">Создан</span>
+                    </span>
+                    <span class="list-group-item d-flex justify-content-between align-items-center placeholder-wave">
+                        <span class="placeholder bg-secondary col-9"></span>
+                        <span class="badge text-bg-primary rounded-pill">Создан</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% with orders_list=new_orders orders_group_title='Ожидают получения' %}
+        {% include 'includes/orders_list.html' %}
+    {% endwith %}
+
+    {% with orders_list=active_orders orders_group_title='Ожидают возврата' %}
+        {% include 'includes/orders_list.html' %}
+    {% endwith %}
+
+    {% with orders_list=other_orders orders_group_title='Завершены' %}
+        {% include 'includes/orders_list.html' %}
+    {% endwith %}
+
+{% endblock %}
+
+
+{% block after_footer %}
+    {% include 'includes/modals.html' %}
+{% endblock %}

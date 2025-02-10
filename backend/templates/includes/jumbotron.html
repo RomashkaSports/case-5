@@ -1,0 +1,17 @@
+<div class="p-3 p-lg-5 mb-4 bg-body-tertiary rounded-3 mb-4">
+    <div class="container-fluid py-lg-5 text-center text-md-start">
+        <h1 class="display-5">Прокат спортивного оборудования</h1>
+        <p class="col-lg-8 lead py-3">
+            Вы&nbsp;можете заказать прокат спортивного инвентаря
+            и&nbsp;оборудования для проведения спортивных мероприятий,
+            семейных праздников, турниров, соревнований в&nbsp;помещениях
+            и&nbsp;на&nbsp;улице.
+        </p>
+        <a class="btn btn-primary btn-lg me-3 mb-3" href="#catalog">Выбрать инвентарь</a>
+        {% if request.user.is_authenticated %}
+            <button class="btn btn-outline-primary btn-lg mb-3 auth-jumbotron d-none" type="button">Войти</button>
+        {% else %}
+            <button class="btn btn-outline-primary btn-lg mb-3 auth-jumbotron" type="button">Войти</button>
+        {% endif %}
+    </div>
+</div>
